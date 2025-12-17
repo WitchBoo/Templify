@@ -77,7 +77,7 @@ class TemplateReplacerIntegrationTest {
 
   private void initializeReplacer(List<Replacement> replacementRules, List<ReplacementOperation> operations) {
     var ruleMatcher = new RuleMatcher();
-    var rulePlanFactory = new RulePlanFactory(settings, ruleMatcher);
+    var rulePlanFactory = new RulePlanFactory(() -> settings, ruleMatcher);
     var fileSelector = new FileSelector();
     var contentReader = new ContentReader();
     var contentWriter = new ContentWriter();
@@ -88,13 +88,13 @@ class TemplateReplacerIntegrationTest {
     }
 
     templateReplacer = new TemplateReplacer(
-      settings,
-      fileSelector,
-      contentReader,
-      contentWriter,
-      rulePlanFactory,
-      operationRegistry,
-		    replacementRules
+            () -> settings,
+            fileSelector,
+            contentReader,
+            contentWriter,
+            rulePlanFactory,
+            operationRegistry,
+            () -> replacementRules
     );
   }
 

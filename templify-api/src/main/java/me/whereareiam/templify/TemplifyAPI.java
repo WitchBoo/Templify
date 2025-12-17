@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
  * ReplacementService service = TemplifyAPI.getService(ReplacementService.class);
  * }</pre>
  *
- * <p><b>Important:</b> Always check {@link #isInitialized()} before accessing services.</p>
+ * <p><b>Important:</b> Always check {@link #isInitialized} before accessing services.</p>
  */
 @SuppressWarnings("unused")
 public final class TemplifyAPI {
