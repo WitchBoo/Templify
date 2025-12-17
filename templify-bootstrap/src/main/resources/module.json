@@ -1,0 +1,41 @@
+{
+  "runtimeModule": false,
+  "storesSensitiveData": true,
+  "group": "me.whereareiam",
+  "name": "@projectName@",
+  "version": "@projectVersion@",
+  "main": "me.whereareiam.templify.Templify",
+  "description": "A module for pre-startup processing and modification of service templates before they are deployed",
+  "author": "whereareiam",
+  "website": "https://maven.whereareiam.me",
+  "repositories": [
+    {
+      "id": "maven-central",
+      "url": "https://repo1.maven.org/maven2/"
+    },
+    {
+      "id": "whereareiam-release",
+      "url": "https://maven.whereareiam.me/release/"
+    },
+    {
+      "id": "whereareiam-development",
+      "url": "https://maven.whereareiam.me/development/"
+    }
+  ],
+  "dependencies": [
+    {
+      "repo": "maven-central",
+      "group": "com.google.inject",
+      "name": "guice",
+      "version": "@guiceVersion@"
+    },
+    {
+      "repo": "whereareiam-development",
+      "group": "me.whereareiam",
+      "name": "Configura",
+      "version": "@configuraVersion@"
+    }
+  ],
+  "minJavaVersionId": 25,
+  "properties": {}
+}

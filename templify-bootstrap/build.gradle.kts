@@ -1,0 +1,45 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.apache.tools.ant.filters.ReplaceTokens
+import org.gradle.kotlin.dsl.filter
+
+plugins {
+    alias(libs.plugins.shadow)
+}
+
+dependencies {
+    rootProject.subprojects.forEach { subproject ->
+        val path = subproject.path
+        if (path != ":templify-bootstrap" && path.startsWith(":templify-")) {
+            "implementation"(project(path))
+        }
+    }
+}
+
+tasks.named<Copy>("processResources") {
+    filter<ReplaceTokens>(
+        "tokens" to mapOf(
+            "projectName" to rootProject.name,
+            "projectVersion" to project.version,
+            // Dependencies
+            "guiceVersion" to libs.versions.guice.get(),
+            "configuraVersion" to libs.versions.configura.get()
+        )
+    )
+}
+
+tasks.withType<ShadowJar> {
+    archiveBaseName.set(rootProject.name)
+    archiveClassifier.set("")
+
+    val defaultDestination = rootProject.layout.buildDirectory.dir("libs")
+
+    val customOutputDir = if (project.hasProperty("output")) {
+        project.layout.dir(project.provider { File(project.property("output").toString()) })
+    } else {
+        null
+    }
+
+    destinationDirectory.set(customOutputDir ?: defaultDestination)
+}
+
+
