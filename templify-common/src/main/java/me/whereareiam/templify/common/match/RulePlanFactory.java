@@ -1,6 +1,7 @@
 package me.whereareiam.templify.common.match;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import eu.cloudnetservice.driver.service.ServiceInfoSnapshot;
 import java.nio.file.PathMatcher;
@@ -23,7 +24,7 @@ import me.whereareiam.templify.model.replacement.Replacement;
 @Singleton
 @RequiredArgsConstructor(onConstructor_ = @Inject)
 public final class RulePlanFactory {
-  private final Settings settings;
+  private final Provider<Settings> settingsProvider;
   private final RuleMatcher ruleMatcher;
 
   public RulePlan create(
@@ -31,6 +32,7 @@ public final class RulePlanFactory {
     ServiceInfoSnapshot serviceInfo,
     String template
   ) {
+    var settings = this.settingsProvider.get();
     var matchingRules = this.ruleMatcher.matchingRules(rules, serviceInfo, template);
     var allGlobs = this.ruleMatcher.collectGlobs(settings, matchingRules);
 

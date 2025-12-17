@@ -1,6 +1,7 @@
 package me.whereareiam.templify.common.placeholder;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import java.util.List;
 import java.util.Map;
@@ -17,13 +18,13 @@ import org.jetbrains.annotations.Nullable;
 
 @Singleton
 public final class RulePlaceholderApplier {
-  private final Settings settings;
+  private final Provider<Settings> settingsProvider;
   private final SearchReplacer searchReplacer;
   private final ValueSelectorFactory selectorFactory;
 
   @Inject
-  public RulePlaceholderApplier(Settings settings, SearchReplacer searchReplacer, ValueSelectorFactory selectorFactory) {
-    this.settings = settings;
+  public RulePlaceholderApplier(Provider<Settings> settingsProvider, SearchReplacer searchReplacer, ValueSelectorFactory selectorFactory) {
+    this.settingsProvider = settingsProvider;
     this.searchReplacer = searchReplacer;
     this.selectorFactory = selectorFactory;
   }
@@ -48,12 +49,13 @@ public final class RulePlaceholderApplier {
     if (replacements == null || replacements.isEmpty())
       return content;
 
+    var settings = this.settingsProvider.get();
     var result = content;
-    var defaultSearchType = this.settings.getDefaults() != null
-            ? this.settings.getDefaults().getSearchType()
+    var defaultSearchType = settings.getDefaults() != null
+            ? settings.getDefaults().getSearchType()
             : SearchType.ALL;
-    var defaultReplaceType = this.settings.getDefaults() != null
-            ? this.settings.getDefaults().getReplaceType()
+    var defaultReplaceType = settings.getDefaults() != null
+            ? settings.getDefaults().getReplaceType()
             : ReplaceType.FIRST;
 
     for (PlaceholderReplacement replacement : replacements) {

@@ -13,9 +13,11 @@ import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 import me.whereareiam.configura.Config;
 import me.whereareiam.templify.ConfigurationTypeResolver;
+import me.whereareiam.templify.Reloadable;
 import me.whereareiam.templify.common.config.provider.rules.example.BasicRulesExample;
 import me.whereareiam.templify.common.config.provider.rules.example.ConditionalRulesExample;
 import me.whereareiam.templify.common.config.provider.rules.example.RulesExample;
+import me.whereareiam.templify.common.provider.ReloadableProvider;
 import me.whereareiam.templify.model.config.Replacements;
 import me.whereareiam.templify.model.replacement.Replacement;
 import me.whereareiam.templify.type.ConfigurationType;
@@ -30,16 +32,21 @@ import me.whereareiam.templify.type.ConfigurationType;
  */
 @Slf4j
 @Singleton
-public final class RulesProvider implements Provider<List<Replacement>> {
+public final class RulesProvider implements Provider<List<Replacement>>, Reloadable {
   private final Path rulesPath;
   private final ConfigurationTypeResolver typeResolver;
 
   private List<Replacement> cached;
 
   @Inject
-  public RulesProvider(@Named("rulesPath") Path rulesPath, ConfigurationTypeResolver typeResolver) {
+  public RulesProvider(
+    @Named("rulesPath") Path rulesPath,
+    ConfigurationTypeResolver typeResolver,
+    ReloadableProvider reloadableProvider
+  ) {
     this.rulesPath = rulesPath;
     this.typeResolver = typeResolver;
+    reloadableProvider.register(this);
   }
 
   @Override
@@ -47,6 +54,16 @@ public final class RulesProvider implements Provider<List<Replacement>> {
     if (this.cached != null)
       return this.cached;
 
+    return load();
+  }
+
+  @Override
+  public void reload() {
+    this.cached = null;
+    load();
+  }
+
+  private List<Replacement> load() {
     ConfigurationType type = this.typeResolver.getConfigurationType();
     String extension = type.getExtension();
 

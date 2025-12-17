@@ -1,6 +1,7 @@
 package me.whereareiam.templify.common;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import eu.cloudnetservice.driver.service.ServiceInfoSnapshot;
 import java.io.IOException;
@@ -26,17 +27,17 @@ import org.jetbrains.annotations.Nullable;
 @Singleton
 @RequiredArgsConstructor(onConstructor_ = @Inject)
 public final class TemplateReplacer implements ReplacementService {
-  private final Settings settings;
+  private final Provider<Settings> settingsProvider;
   private final FileSelector fileSelector;
   private final ContentReader contentReader;
   private final ContentWriter contentWriter;
   private final RulePlanFactory rulePlanFactory;
   private final ReplacementOperationRegistry operationRegistry;
-  private final List<Replacement> rules;
+  private final Provider<List<Replacement>> rulesProvider;
 
   @Override
   public void apply(@NonNull ServiceInfoSnapshot serviceInfo, @NonNull Path serviceDirectory, @Nullable String template) {
-    var plan = this.rulePlanFactory.create(rules, serviceInfo, template);
+    var plan = this.rulePlanFactory.create(rulesProvider.get(), serviceInfo, template);
     if (plan.getFileMatchers().isEmpty()) return;
 
     try {
@@ -63,7 +64,7 @@ public final class TemplateReplacer implements ReplacementService {
   }
 
   private boolean withinSizeLimit(Path path) {
-    var limitSection = settings.getLimits();
+    var limitSection = settingsProvider.get().getLimits();
     long limit = limitSection == null ? 0L : limitSection.getMaxFileSizeBytes();
     if (limit <= 0L) return true;
 

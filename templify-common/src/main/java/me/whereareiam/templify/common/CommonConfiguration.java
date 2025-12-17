@@ -2,13 +2,16 @@ package me.whereareiam.templify.common;
 
 import com.google.inject.*;
 import com.google.inject.name.Named;
+import com.google.inject.name.Names;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Set;
 
 import lombok.RequiredArgsConstructor;
 import me.whereareiam.templify.ConfigurationTypeResolver;
+import me.whereareiam.templify.Reloadable;
 import me.whereareiam.templify.common.placeholder.type.NodeIdPlaceholderProvider;
 import me.whereareiam.templify.common.placeholder.type.TaskNamePlaceholderProvider;
 import me.whereareiam.templify.common.placeholder.type.environment.EnvironmentPlaceholderProvider;
@@ -16,6 +19,7 @@ import me.whereareiam.templify.common.placeholder.type.environment.EnvironmentVa
 import me.whereareiam.templify.common.placeholder.type.service.ServiceHostPlaceholderProvider;
 import me.whereareiam.templify.common.placeholder.type.service.ServiceNamePlaceholderProvider;
 import me.whereareiam.templify.common.placeholder.type.service.ServicePortPlaceholderProvider;
+import me.whereareiam.templify.common.provider.ReloadableProvider;
 import me.whereareiam.templify.common.replacement.operation.type.PlaceholderReplacementOperation;
 import me.whereareiam.templify.replacement.ReplacementOperationRegistry;
 import me.whereareiam.templify.replacement.ReplacementService;
@@ -50,6 +54,11 @@ public final class CommonConfiguration extends AbstractModule {
     bind(Settings.class).toProvider(SettingsProvider.class);
     bind(new TypeLiteral<List<Replacement>>(){})
       .toProvider(RulesProvider.class);
+
+    // Reloadable registry
+    bind(ReloadableProvider.class).asEagerSingleton();
+    bind(new TypeLiteral<Set<Reloadable>>(){})
+      .annotatedWith(Names.named("reloadables")).toProvider(ReloadableProvider.class);
 
     requestInjection(this);
   }
