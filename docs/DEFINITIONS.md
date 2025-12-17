@@ -18,14 +18,14 @@ and either static values or conditional rules for replacement.
 
 ## Fields
 
-| Field         | Type   | Required | Description                      |
-|---------------|--------|----------|----------------------------------|
-| `token`       | string | Yes      | The text to search for in files  |
-| `searchType`  | string | No       | How many occurrences to find     |
-| `replaceType` | string | No       | How to select replacement values |
+| Field         | Type   | Required | Description                           |
+|---------------|--------|----------|---------------------------------------|
+| `token`       | string | Yes      | The text to search for in files       |
+| `searchType`  | string | No       | How many occurrences to find          |
+| `replaceType` | string | No       | How to select replacement values      |
+| `values`      | array  | No*      | List of replacement values            |
+| `conditions`  | array  | No*      | Conditional rules for value selection |
 
-| `values`     | array | No*      | List of replacement values |
-| `conditions` | array | No*      | Conditional rules for value selection |
 > [!NOTE]
 > Use either `values` or `conditions`, not both. Use `values` with `replaceType: FIRST/RANDOM/SEQUENTIAL`,
 > and `conditions` with `replaceType: CONDITIONAL`.
