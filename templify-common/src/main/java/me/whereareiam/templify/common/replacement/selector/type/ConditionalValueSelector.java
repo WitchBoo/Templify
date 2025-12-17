@@ -37,7 +37,8 @@ public final class ConditionalValueSelector implements ValueSelector {
       var when = condition.getWhen();
       if (when.getField() == null) continue;
 
-      var actualValue = registry.getValue(when.getField(), context);
+      var field = when.getField().replace("%", "");
+      var actualValue = registry.getValue(field, context);
       if (actualValue == null) continue;
 
       if (when.getEquals() != null && actualValue.equals(when.getEquals()))

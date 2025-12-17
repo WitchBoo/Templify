@@ -1,7 +1,7 @@
 package me.whereareiam.templify.common.config.provider.rules.example;
 
 import java.util.List;
-import me.whereareiam.templify.model.PlaceholderReplacement;
+import me.whereareiam.templify.model.ReplacementDefinition;
 import me.whereareiam.templify.model.TargetDefinition;
 import me.whereareiam.templify.model.condition.ConditionRule;
 import me.whereareiam.templify.model.condition.ConditionWhen;
@@ -32,28 +32,28 @@ public final class ConditionalRulesExample implements RulesExample {
           List.of("server.properties", "spigot.yml"),
           List.of(
             // max-players based on task name
-            new PlaceholderReplacement(
+            new ReplacementDefinition(
               "%max_players%",
               SearchType.ALL,
               ReplaceType.CONDITIONAL,
               null,
               List.of(
-                new ConditionRule(new ConditionWhen("task", "Lobby", null), "200"),
-                new ConditionRule(new ConditionWhen("task", "Survival", null), "50"),
-                new ConditionRule(new ConditionWhen("task", "BedWars", null), "16"),
+                new ConditionRule(new ConditionWhen("%taskName%", "Lobby", null), "200"),
+                new ConditionRule(new ConditionWhen("%taskName%", "Survival", null), "50"),
+                new ConditionRule(new ConditionWhen("%taskName%", "BedWars", null), "16"),
                 new ConditionRule(new ConditionWhen(null, null, null), "20") // default
               )
             ),
             // view-distance based on task name
-            new PlaceholderReplacement(
+            new ReplacementDefinition(
               "%view_distance%",
               SearchType.ALL,
               ReplaceType.CONDITIONAL,
               null,
               List.of(
-                new ConditionRule(new ConditionWhen("task", "Lobby", null), "8"),
-                new ConditionRule(new ConditionWhen("task", "Survival", null), "12"),
-                new ConditionRule(new ConditionWhen("task", "BedWars", null), "6"),
+                new ConditionRule(new ConditionWhen("%taskName%", "Lobby", null), "8"),
+                new ConditionRule(new ConditionWhen("%taskName%", "Survival", null), "12"),
+                new ConditionRule(new ConditionWhen("%taskName%", "BedWars", null), "6"),
                 new ConditionRule(new ConditionWhen(null, null, null), "10") // default
               )
             )

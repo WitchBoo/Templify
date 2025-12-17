@@ -6,7 +6,7 @@ import me.whereareiam.templify.common.replacement.selector.type.ConditionalValue
 import me.whereareiam.templify.common.replacement.selector.type.FirstValueSelector;
 import me.whereareiam.templify.common.replacement.selector.type.RandomValueSelector;
 import me.whereareiam.templify.common.replacement.selector.type.SequentialValueSelector;
-import me.whereareiam.templify.model.PlaceholderReplacement;
+import me.whereareiam.templify.model.ReplacementDefinition;
 import me.whereareiam.templify.placeholder.PlaceholderContext;
 import me.whereareiam.templify.placeholder.PlaceholderRegistry;
 import me.whereareiam.templify.type.ReplaceType;
@@ -20,7 +20,7 @@ public final class ValueSelectorFactory {
 
   public @Nullable ValueSelector selector(
     ReplaceType replaceType,
-    PlaceholderReplacement replacement,
+    ReplacementDefinition replacement,
     PlaceholderContext context
   ) {
     var values = replacement.getValues() == null ? List.<String>of() : replacement.getValues();

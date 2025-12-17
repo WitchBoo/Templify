@@ -3,7 +3,7 @@ package me.whereareiam.templify.model.replacement;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import me.whereareiam.templify.model.PlaceholderReplacement;
+import me.whereareiam.templify.model.ReplacementDefinition;
 import me.whereareiam.templify.model.TargetDefinition;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,6 +26,6 @@ public final class Replacement {
   private List<String> files;
 
   @Nullable
-  private List<PlaceholderReplacement> placeholders;
+  private List<ReplacementDefinition> definitions;
 }
 

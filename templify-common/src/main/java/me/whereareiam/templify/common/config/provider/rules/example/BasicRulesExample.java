@@ -1,7 +1,7 @@
 package me.whereareiam.templify.common.config.provider.rules.example;
 
 import java.util.List;
-import me.whereareiam.templify.model.PlaceholderReplacement;
+import me.whereareiam.templify.model.ReplacementDefinition;
 import me.whereareiam.templify.model.TargetDefinition;
 import me.whereareiam.templify.model.config.Replacements;
 import me.whereareiam.templify.model.replacement.Replacement;
@@ -29,35 +29,35 @@ public final class BasicRulesExample implements RulesExample {
           List.of(new TargetDefinition(null, null, "MINECRAFT_SERVER", null, null)),
           List.of("plugins/*/config.yml", "plugins/*/database.yml"),
           List.of(
-            new PlaceholderReplacement(
+            new ReplacementDefinition(
               "%database_host%",
               SearchType.ALL,
               ReplaceType.FIRST,
               List.of("%env:DATABASE_HOST%"),
               null
             ),
-            new PlaceholderReplacement(
+            new ReplacementDefinition(
               "%database_port%",
               SearchType.ALL,
               ReplaceType.FIRST,
               List.of("%env:DATABASE_PORT%"),
               null
             ),
-            new PlaceholderReplacement(
+            new ReplacementDefinition(
               "%database_name%",
               SearchType.ALL,
               ReplaceType.FIRST,
               List.of("%env:DATABASE_NAME%"),
               null
             ),
-            new PlaceholderReplacement(
+            new ReplacementDefinition(
               "%database_user%",
               SearchType.ALL,
               ReplaceType.FIRST,
               List.of("%env:DATABASE_USER%"),
               null
             ),
-            new PlaceholderReplacement(
+            new ReplacementDefinition(
               "%database_password%",
               SearchType.ALL,
               ReplaceType.FIRST,
@@ -73,7 +73,7 @@ public final class BasicRulesExample implements RulesExample {
           List.of(new TargetDefinition(null, null, "MINECRAFT_SERVER", null, null)),
           List.of("config/paper-global.yml"),
           List.of(
-            new PlaceholderReplacement(
+            new ReplacementDefinition(
               "%forwarding_secret%",
               SearchType.ALL,
               ReplaceType.FIRST,
@@ -89,7 +89,7 @@ public final class BasicRulesExample implements RulesExample {
           List.of(new TargetDefinition(null, null, "VELOCITY", null, null)),
           List.of("velocity.toml"),
           List.of(
-            new PlaceholderReplacement(
+            new ReplacementDefinition(
               "%forwarding_secret%",
               SearchType.ALL,
               ReplaceType.FIRST,
@@ -105,7 +105,7 @@ public final class BasicRulesExample implements RulesExample {
           List.of(new TargetDefinition(null, null, "BUNGEECORD", null, null)),
           List.of("config.yml"),
           List.of(
-            new PlaceholderReplacement(
+            new ReplacementDefinition(
               "%forwarding_secret%",
               SearchType.ALL,
               ReplaceType.FIRST,
@@ -121,7 +121,7 @@ public final class BasicRulesExample implements RulesExample {
           List.of(new TargetDefinition("Lobby", null, "MINECRAFT_SERVER", null, null)),
           List.of("plugins/LobbyPlugin/config.yml"),
           List.of(
-            new PlaceholderReplacement(
+            new ReplacementDefinition(
               "%lobby_mode%",
               SearchType.ALL,
               ReplaceType.FIRST,
@@ -137,7 +137,7 @@ public final class BasicRulesExample implements RulesExample {
           List.of(new TargetDefinition(null, null, null, "minigames", null)),
           List.of("spigot.yml"),
           List.of(
-            new PlaceholderReplacement(
+            new ReplacementDefinition(
               "%entity_activation_range%",
               SearchType.ALL,
               ReplaceType.FIRST,
@@ -153,7 +153,7 @@ public final class BasicRulesExample implements RulesExample {
           List.of(new TargetDefinition(null, "Lobby-1", null, null, null)),
           List.of("plugins/*/config.yml"),
           List.of(
-            new PlaceholderReplacement(
+            new ReplacementDefinition(
               "%is_main_lobby%",
               SearchType.ALL,
               ReplaceType.FIRST,
@@ -169,7 +169,7 @@ public final class BasicRulesExample implements RulesExample {
           List.of(new TargetDefinition(null, null, null, null, "default")),
           List.of("server.properties"),
           List.of(
-            new PlaceholderReplacement(
+            new ReplacementDefinition(
               "%motd%",
               SearchType.ALL,
               ReplaceType.FIRST,

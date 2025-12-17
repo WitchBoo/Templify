@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public final class PlaceholderReplacement {
+public final class ReplacementDefinition {
   @NotNull
   private String token;
 

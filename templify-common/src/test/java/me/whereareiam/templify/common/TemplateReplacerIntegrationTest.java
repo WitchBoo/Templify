@@ -11,7 +11,7 @@ import me.whereareiam.templify.common.files.content.ContentWriter;
 import me.whereareiam.templify.common.match.RuleMatcher;
 import me.whereareiam.templify.common.match.RulePlanFactory;
 import me.whereareiam.templify.common.replacement.operation.DefaultReplacementOperationRegistry;
-import me.whereareiam.templify.model.PlaceholderReplacement;
+import me.whereareiam.templify.model.ReplacementDefinition;
 import me.whereareiam.templify.model.ReplacementContext;
 import me.whereareiam.templify.model.config.Settings;
 import me.whereareiam.templify.model.replacement.Replacement;
@@ -108,7 +108,7 @@ class TemplateReplacerIntegrationTest {
     var otherFile = tempDir.resolve("readme.txt");
     Files.writeString(otherFile, "server: %server%");
 
-    var placeholder = new PlaceholderReplacement("%server%", SearchType.ALL, ReplaceType.FIRST, List.of("lobby"), null);
+    var placeholder = new ReplacementDefinition("%server%", SearchType.ALL, ReplaceType.FIRST, List.of("lobby"), null);
     var rule = new Replacement("test", true, null, List.of("*.yml"), List.of(placeholder));
 
     ReplacementOperation simpleOp = ctx -> ctx.getContent().replace("%server%", "lobby");
@@ -132,7 +132,7 @@ class TemplateReplacerIntegrationTest {
 
     // Rule that won't match (wrong task) and no global file patterns
     settings.setPaths(null); // No global patterns
-    var placeholder = new PlaceholderReplacement("%server%", SearchType.ALL, ReplaceType.FIRST, List.of("lobby"), null);
+    var placeholder = new ReplacementDefinition("%server%", SearchType.ALL, ReplaceType.FIRST, List.of("lobby"), null);
     var rule = new Replacement("test", true, 
       List.of(new me.whereareiam.templify.model.TargetDefinition("DifferentTask", null, null, null, null)),
       List.of("*.yml"), 
