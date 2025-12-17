@@ -3,15 +3,14 @@ package me.whereareiam.templify.common;
 import com.google.inject.*;
 import com.google.inject.name.Named;
 import com.google.inject.name.Names;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
-import java.util.Set;
-
 import lombok.RequiredArgsConstructor;
 import me.whereareiam.templify.ConfigurationTypeResolver;
 import me.whereareiam.templify.Reloadable;
+import me.whereareiam.templify.common.config.ConfiguraBootstrap;
+import me.whereareiam.templify.common.config.provider.SettingsProvider;
+import me.whereareiam.templify.common.config.provider.rules.RulesProvider;
+import me.whereareiam.templify.common.config.resolver.FileSystemConfigurationTypeResolver;
+import me.whereareiam.templify.common.placeholder.DefaultPlaceholderRegistry;
 import me.whereareiam.templify.common.placeholder.type.NodeIdPlaceholderProvider;
 import me.whereareiam.templify.common.placeholder.type.TaskNamePlaceholderProvider;
 import me.whereareiam.templify.common.placeholder.type.environment.EnvironmentPlaceholderProvider;
@@ -20,18 +19,19 @@ import me.whereareiam.templify.common.placeholder.type.service.ServiceHostPlaceh
 import me.whereareiam.templify.common.placeholder.type.service.ServiceNamePlaceholderProvider;
 import me.whereareiam.templify.common.placeholder.type.service.ServicePortPlaceholderProvider;
 import me.whereareiam.templify.common.provider.ReloadableProvider;
+import me.whereareiam.templify.common.replacement.operation.DefaultReplacementOperationRegistry;
 import me.whereareiam.templify.common.replacement.operation.type.PlaceholderReplacementOperation;
-import me.whereareiam.templify.replacement.ReplacementOperationRegistry;
-import me.whereareiam.templify.replacement.ReplacementService;
-import me.whereareiam.templify.common.config.ConfiguraBootstrap;
-import me.whereareiam.templify.common.config.provider.rules.RulesProvider;
-import me.whereareiam.templify.common.config.provider.SettingsProvider;
-import me.whereareiam.templify.common.config.resolver.FileSystemConfigurationTypeResolver;
-import me.whereareiam.templify.common.match.RulePlanFactory;
-import me.whereareiam.templify.common.placeholder.DefaultPlaceholderRegistry;
 import me.whereareiam.templify.model.config.Settings;
 import me.whereareiam.templify.model.replacement.Replacement;
 import me.whereareiam.templify.placeholder.PlaceholderRegistry;
+import me.whereareiam.templify.replacement.ReplacementOperationRegistry;
+import me.whereareiam.templify.replacement.ReplacementService;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 public final class CommonConfiguration extends AbstractModule {
@@ -39,11 +39,9 @@ public final class CommonConfiguration extends AbstractModule {
 
   @Override
   protected void configure() {
+    bind(ReplacementOperationRegistry.class).to(DefaultReplacementOperationRegistry.class);
     bind(ReplacementService.class).to(TemplateReplacer.class);
-    bind(RulePlanFactory.class).asEagerSingleton();
-
-    // Placeholder system
-    bind(PlaceholderRegistry.class).to(DefaultPlaceholderRegistry.class).asEagerSingleton();
+    bind(PlaceholderRegistry.class).to(DefaultPlaceholderRegistry.class);
 
     // Configuration
     bind(ConfigurationTypeResolver.class)

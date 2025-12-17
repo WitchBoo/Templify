@@ -1,16 +1,16 @@
 package me.whereareiam.templify.model.condition;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
+import org.jetbrains.annotations.NotNull;
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public final class ConditionRule {
-  @NonNull
-  private final ConditionWhen when;
+  @NotNull
+  private ConditionWhen when;
 
-  @NonNull
-  private final String value;
+  @NotNull
+  private String value;
 }
 

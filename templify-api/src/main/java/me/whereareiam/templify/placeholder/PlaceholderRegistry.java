@@ -1,10 +1,11 @@
 package me.whereareiam.templify.placeholder;
 
-import java.util.Map;
-import lombok.NonNull;
 import me.whereareiam.templify.placeholder.provider.DynamicPlaceholderProvider;
 import me.whereareiam.templify.placeholder.provider.PlaceholderProvider;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 
 /**
  * Registry for managing and resolving placeholder providers.
@@ -20,7 +21,7 @@ public interface PlaceholderRegistry {
    * @param key the placeholder key (will be normalized: lowercase, % stripped)
    * @param provider the provider that resolves the placeholder value
    */
-  void register(@NonNull String key, @NonNull PlaceholderProvider provider);
+  void register(@NotNull String key, @NotNull PlaceholderProvider provider);
 
   /**
    * Registers a placeholder provider for a specific key with a custom priority.
@@ -33,7 +34,7 @@ public interface PlaceholderRegistry {
    * @param provider the provider that resolves the placeholder value
    * @param priority the priority (higher = checked first)
    */
-  void register(@NonNull String key, @NonNull PlaceholderProvider provider, int priority);
+  void register(@NotNull String key, @NotNull PlaceholderProvider provider, int priority);
 
   /**
    * Registers a dynamic placeholder provider.
@@ -43,7 +44,7 @@ public interface PlaceholderRegistry {
    *
    * @param provider the dynamic provider to register
    */
-  void register(@NonNull DynamicPlaceholderProvider provider);
+  void register(@NotNull DynamicPlaceholderProvider provider);
 
   /**
    * Registers a dynamic placeholder provider with a custom priority.
@@ -51,7 +52,7 @@ public interface PlaceholderRegistry {
    * @param provider the dynamic provider to register
    * @param priority the priority (higher = checked first)
    */
-  void register(@NonNull DynamicPlaceholderProvider provider, int priority);
+  void register(@NotNull DynamicPlaceholderProvider provider, int priority);
 
   /**
    * Resolves a placeholder value for the given key.
@@ -63,7 +64,7 @@ public interface PlaceholderRegistry {
    * @return the resolved value, or {@code null} if no provider can resolve it
    */
   @Nullable
-  String getValue(@NonNull String key, @NonNull PlaceholderContext context);
+  String getValue(@NotNull String key, @NotNull PlaceholderContext context);
 
   /**
    * Gets all registered placeholders resolved with their values.
@@ -73,6 +74,6 @@ public interface PlaceholderRegistry {
    *                    if {@code false}, keys will be plain (e.g., "nodeId")
    * @return a map of all resolved placeholder keys to their values
    */
-  @NonNull
-  Map<String, String> getAll(@NonNull PlaceholderContext context, boolean withPercent);
+  @NotNull
+  Map<String, String> getAll(@NotNull PlaceholderContext context, boolean withPercent);
 }

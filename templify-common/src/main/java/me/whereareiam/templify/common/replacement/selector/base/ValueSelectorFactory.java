@@ -1,5 +1,6 @@
 package me.whereareiam.templify.common.replacement.selector.base;
 
+import com.google.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import me.whereareiam.templify.common.replacement.selector.type.ConditionalValueSelector;
 import me.whereareiam.templify.common.replacement.selector.type.FirstValueSelector;
@@ -13,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor_ = @Inject)
 public final class ValueSelectorFactory {
   private final PlaceholderRegistry registry;
 

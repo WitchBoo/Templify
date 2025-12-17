@@ -1,9 +1,9 @@
 package me.whereareiam.templify.common.replacement.operation;
 
 import com.google.inject.Singleton;
-import lombok.NonNull;
 import me.whereareiam.templify.replacement.ReplacementOperation;
 import me.whereareiam.templify.replacement.ReplacementOperationRegistry;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -15,24 +15,24 @@ public final class DefaultReplacementOperationRegistry implements ReplacementOpe
   private final List<OperationEntry> entries = new CopyOnWriteArrayList<>();
 
   @Override
-  public void register(@NonNull ReplacementOperation operation) {
+  public void register(@NotNull ReplacementOperation operation) {
     this.register(operation, 0);
   }
 
   @Override
-  public void register(@NonNull ReplacementOperation operation, int priority) {
+  public void register(@NotNull ReplacementOperation operation, int priority) {
     this.entries.add(new OperationEntry(operation, priority));
     this.entries.sort(Comparator.comparingInt(OperationEntry::priority).reversed());
   }
 
   @Override
-  public @NonNull List<ReplacementOperation> getOperations() {
+  public @NotNull List<ReplacementOperation> getOperations() {
     var result = new ArrayList<ReplacementOperation>(this.entries.size());
-    for (var entry : this.entries) {
+    for (var entry : this.entries)
       result.add(entry.operation());
-    }
+
     return result;
   }
 
-  private record OperationEntry(@NonNull ReplacementOperation operation, int priority) {}
+  private record OperationEntry(@NotNull ReplacementOperation operation, int priority) {}
 }

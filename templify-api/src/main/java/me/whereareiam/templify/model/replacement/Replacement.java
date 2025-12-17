@@ -1,28 +1,31 @@
 package me.whereareiam.templify.model.replacement;
 
-import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import me.whereareiam.templify.model.PlaceholderReplacement;
 import me.whereareiam.templify.model.TargetDefinition;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public final class Replacement {
   @Nullable
-  private final String id;
+  private String id;
 
   @Nullable
-  private final Boolean enabled;
+  private Boolean enabled;
 
   @Nullable
-  private final List<TargetDefinition> targets;
+  private List<TargetDefinition> targets;
 
   @Nullable
-  private final List<String> files;
+  private List<String> files;
 
   @Nullable
-  private final List<PlaceholderReplacement> placeholders;
+  private List<PlaceholderReplacement> placeholders;
 }
 

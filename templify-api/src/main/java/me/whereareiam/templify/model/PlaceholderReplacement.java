@@ -1,30 +1,31 @@
 package me.whereareiam.templify.model;
 
-import java.util.List;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import me.whereareiam.templify.model.condition.ConditionRule;
 import me.whereareiam.templify.type.ReplaceType;
 import me.whereareiam.templify.type.SearchType;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public final class PlaceholderReplacement {
-  @NonNull
-  private final String token;
+  @NotNull
+  private String token;
 
   @Nullable
-  private final SearchType searchType;
+  private SearchType searchType;
 
   @Nullable
-  private final ReplaceType replaceType;
+  private ReplaceType replaceType;
 
   @Nullable
-  private final List<String> values;
+  private List<String> values;
 
   @Nullable
-  private final List<ConditionRule> conditions;
+  private List<ConditionRule> conditions;
 }
 

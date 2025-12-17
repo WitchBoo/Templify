@@ -2,6 +2,12 @@ package me.whereareiam.templify.common.match;
 
 import com.google.inject.Singleton;
 import eu.cloudnetservice.driver.service.ServiceInfoSnapshot;
+import me.whereareiam.templify.model.TargetDefinition;
+import me.whereareiam.templify.model.config.Settings;
+import me.whereareiam.templify.model.replacement.Replacement;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.PathMatcher;
@@ -9,17 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import lombok.NonNull;
-import me.whereareiam.templify.model.replacement.Replacement;
-import me.whereareiam.templify.model.TargetDefinition;
-import me.whereareiam.templify.model.config.Settings;
-import org.jetbrains.annotations.Nullable;
 
 @Singleton
 public final class RuleMatcher {
   public List<Replacement> matchingRules(
-          @NonNull List<Replacement> rules,
-          @NonNull ServiceInfoSnapshot serviceInfo,
+          @NotNull List<Replacement> rules,
+          @NotNull ServiceInfoSnapshot serviceInfo,
           @Nullable String template
   ) {
     return rules.stream()
@@ -28,7 +29,7 @@ public final class RuleMatcher {
             .toList();
   }
 
-  public List<String> collectGlobs(@NonNull Settings configuration, @NonNull List<Replacement> matchingRules) {
+  public List<String> collectGlobs(@NotNull Settings configuration, @NotNull List<Replacement> matchingRules) {
     var globs = new ArrayList<String>();
     if (configuration.getPaths() != null)
       globs.addAll(this.nonNullList(configuration.getPaths().getFilePatterns()));
@@ -40,7 +41,7 @@ public final class RuleMatcher {
     return globs.stream().distinct().toList();
   }
 
-  public List<PathMatcher> resolveGlobs(@NonNull Replacement rule, @NonNull Settings configuration) {
+  public List<PathMatcher> resolveGlobs(@NotNull Replacement rule, @NotNull Settings configuration) {
     var globs = rule.getFiles();
     if (globs == null || globs.isEmpty())
       globs = configuration.getPaths() != null ? configuration.getPaths().getFilePatterns() : List.of();
@@ -50,13 +51,13 @@ public final class RuleMatcher {
             .collect(Collectors.toList());
   }
 
-  public List<PathMatcher> toPathMatchers(@NonNull List<String> globs) {
+  public List<PathMatcher> toPathMatchers(@NotNull List<String> globs) {
     return globs.stream()
             .map(glob -> FileSystems.getDefault().getPathMatcher("glob:**/" + glob))
             .toList();
   }
 
-  public boolean matchesAny(@NonNull Path path, @NonNull List<PathMatcher> matchers) {
+  public boolean matchesAny(@NotNull Path path, @NotNull List<PathMatcher> matchers) {
     for (var matcher : matchers)
       if (matcher.matches(path))
         return true;

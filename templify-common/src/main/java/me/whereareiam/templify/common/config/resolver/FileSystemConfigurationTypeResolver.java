@@ -2,13 +2,14 @@ package me.whereareiam.templify.common.config.resolver;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import me.whereareiam.templify.ConfigurationTypeResolver;
+import me.whereareiam.templify.type.ConfigurationType;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.stream.Stream;
-import me.whereareiam.templify.ConfigurationTypeResolver;
-import me.whereareiam.templify.type.ConfigurationType;
 
 /**
  * Resolves the configuration selector based on a small marker file next to the
@@ -27,16 +28,16 @@ public final class FileSystemConfigurationTypeResolver implements ConfigurationT
     try (Stream<Path> paths = Files.list(this.dataPath)) {
       Optional<Path> configFile = paths
         .filter(Files::isRegularFile)
-        .filter(p -> p.getFileName().toString().startsWith("selector="))
+        .filter(p -> p.getFileName().toString().startsWith("type="))
         .findFirst();
 
       if (configFile.isPresent()) {
         String[] parts = configFile.get().getFileName().toString().split("=", 2);
         return ConfigurationType.valueOf(parts[1].toUpperCase());
-      } else {
-        Files.createFile(this.dataPath.resolve("selector=JSON"));
-        return ConfigurationType.JSON;
       }
+
+      Files.createFile(this.dataPath.resolve("type=JSON"));
+      return ConfigurationType.JSON;
     } catch (IOException e) {
       throw new RuntimeException("Failed to get configuration selector", e);
     }

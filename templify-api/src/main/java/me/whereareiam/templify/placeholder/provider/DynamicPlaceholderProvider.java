@@ -1,7 +1,7 @@
 package me.whereareiam.templify.placeholder.provider;
 
-import lombok.NonNull;
 import me.whereareiam.templify.placeholder.PlaceholderContext;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -18,7 +18,7 @@ public interface DynamicPlaceholderProvider {
    * @param key the normalized placeholder key (lowercase, without % delimiters)
    * @return {@code true} if this provider can resolve the placeholder
    */
-  boolean matches(@NonNull String key);
+  boolean matches(@NotNull String key);
 
   /**
    * Resolves the placeholder value for the given key.
@@ -28,5 +28,5 @@ public interface DynamicPlaceholderProvider {
    * @return the resolved placeholder value, or {@code null} if the value cannot be resolved
    */
   @Nullable
-  String getValue(@NonNull String key, @NonNull PlaceholderContext context);
+  String getValue(@NotNull String key, @NotNull PlaceholderContext context);
 }

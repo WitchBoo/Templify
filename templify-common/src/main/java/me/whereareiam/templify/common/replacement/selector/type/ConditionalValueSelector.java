@@ -1,20 +1,21 @@
 package me.whereareiam.templify.common.replacement.selector.type;
 
-import java.util.List;
-import java.util.regex.Pattern;
-import lombok.NonNull;
 import me.whereareiam.templify.common.replacement.selector.base.ValueSelector;
 import me.whereareiam.templify.model.condition.ConditionRule;
 import me.whereareiam.templify.placeholder.PlaceholderContext;
 import me.whereareiam.templify.placeholder.PlaceholderRegistry;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+import java.util.regex.Pattern;
 
 public final class ConditionalValueSelector implements ValueSelector {
   private final String value;
 
   public ConditionalValueSelector(
-    @NonNull List<ConditionRule> conditions,
-    @NonNull PlaceholderRegistry registry,
-    @NonNull PlaceholderContext context
+    @NotNull List<ConditionRule> conditions,
+    @NotNull PlaceholderRegistry registry,
+    @NotNull PlaceholderContext context
   ) {
     this.value = this.evaluateConditions(conditions, registry, context);
   }

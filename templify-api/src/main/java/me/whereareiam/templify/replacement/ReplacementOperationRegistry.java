@@ -1,7 +1,8 @@
 package me.whereareiam.templify.replacement;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
-import lombok.NonNull;
 
 /**
  * Registry for {@link ReplacementOperation} instances.
@@ -15,7 +16,7 @@ public interface ReplacementOperationRegistry {
    *
    * @param operation the operation to register
    */
-  void register(@NonNull ReplacementOperation operation);
+  void register(@NotNull ReplacementOperation operation);
 
   /**
    * Registers a replacement operation with a specific priority.
@@ -24,13 +25,13 @@ public interface ReplacementOperationRegistry {
    * @param operation the operation to register
    * @param priority the priority (higher = executed first)
    */
-  void register(@NonNull ReplacementOperation operation, int priority);
+  void register(@NotNull ReplacementOperation operation, int priority);
 
   /**
    * Returns all registered operations in priority order.
    *
    * @return list of registered operations
    */
-  @NonNull
+  @NotNull
   List<ReplacementOperation> getOperations();
 }

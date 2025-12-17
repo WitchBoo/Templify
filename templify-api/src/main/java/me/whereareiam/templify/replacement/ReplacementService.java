@@ -1,9 +1,10 @@
 package me.whereareiam.templify.replacement;
 
 import eu.cloudnetservice.driver.service.ServiceInfoSnapshot;
-import java.nio.file.Path;
-import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.nio.file.Path;
 
 public interface ReplacementService {
   /**
@@ -13,5 +14,5 @@ public interface ReplacementService {
    * @param serviceDirectory the directory containing files to process
    * @param template optional template name for rule matching
    */
-  void apply(@NonNull ServiceInfoSnapshot serviceInfo, @NonNull Path serviceDirectory, @Nullable String template);
+  void apply(@NotNull ServiceInfoSnapshot serviceInfo, @NotNull Path serviceDirectory, @Nullable String template);
 }

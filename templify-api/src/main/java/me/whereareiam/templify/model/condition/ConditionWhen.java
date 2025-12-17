@@ -1,19 +1,21 @@
 package me.whereareiam.templify.model.condition;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.Nullable;
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public final class ConditionWhen {
   @Nullable
-  private final String field;
+  private String field;
 
   @Nullable
-  private final String equals;
+  private String equals;
 
   @Nullable
-  private final String regex;
+  private String regex;
 }
 

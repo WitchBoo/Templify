@@ -1,8 +1,8 @@
 package me.whereareiam.templify.common.placeholder.type.environment;
 
-import lombok.NonNull;
-import me.whereareiam.templify.placeholder.provider.DynamicPlaceholderProvider;
 import me.whereareiam.templify.placeholder.PlaceholderContext;
+import me.whereareiam.templify.placeholder.provider.DynamicPlaceholderProvider;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -22,12 +22,12 @@ public final class EnvironmentVariablePlaceholderProvider implements DynamicPlac
   private static final String PREFIX = "env:";
 
   @Override
-  public boolean matches(@NonNull String key) {
+  public boolean matches(@NotNull String key) {
     return key.startsWith(PREFIX);
   }
 
   @Override
-  public @Nullable String getValue(@NonNull String key, @NonNull PlaceholderContext context) {
+  public @Nullable String getValue(@NotNull String key, @NotNull PlaceholderContext context) {
     var variableName = key.substring(PREFIX.length());
     if (variableName.isEmpty())
       return null;

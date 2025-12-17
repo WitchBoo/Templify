@@ -4,24 +4,25 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import eu.cloudnetservice.driver.service.ServiceInfoSnapshot;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import me.whereareiam.templify.common.files.FileSelector;
+import me.whereareiam.templify.common.files.content.ContentReader;
+import me.whereareiam.templify.common.files.content.ContentWriter;
+import me.whereareiam.templify.common.match.RulePlanFactory;
+import me.whereareiam.templify.model.ReplacementContext;
+import me.whereareiam.templify.model.RulePlan;
+import me.whereareiam.templify.model.config.Settings;
+import me.whereareiam.templify.model.replacement.Replacement;
+import me.whereareiam.templify.replacement.ReplacementOperationRegistry;
+import me.whereareiam.templify.replacement.ReplacementService;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import me.whereareiam.templify.replacement.ReplacementOperationRegistry;
-import me.whereareiam.templify.replacement.ReplacementService;
-import me.whereareiam.templify.common.files.FileSelector;
-import me.whereareiam.templify.common.files.content.ContentReader;
-import me.whereareiam.templify.common.files.content.ContentWriter;
-import me.whereareiam.templify.model.ReplacementContext;
-import me.whereareiam.templify.model.RulePlan;
-import me.whereareiam.templify.common.match.RulePlanFactory;
-import me.whereareiam.templify.model.config.Settings;
-import me.whereareiam.templify.model.replacement.Replacement;
-import org.jetbrains.annotations.Nullable;
 
 @Slf4j
 @Singleton
@@ -36,7 +37,7 @@ public final class TemplateReplacer implements ReplacementService {
   private final Provider<List<Replacement>> rulesProvider;
 
   @Override
-  public void apply(@NonNull ServiceInfoSnapshot serviceInfo, @NonNull Path serviceDirectory, @Nullable String template) {
+  public void apply(@NotNull ServiceInfoSnapshot serviceInfo, @NotNull Path serviceDirectory, @Nullable String template) {
     var plan = this.rulePlanFactory.create(rulesProvider.get(), serviceInfo, template);
     if (plan.getFileMatchers().isEmpty()) return;
 
