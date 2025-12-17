@@ -100,9 +100,11 @@ public final class RulesProvider implements Provider<List<Replacement>>, Reloada
   }
 
   private void createExampleFilesIfEmpty(String extension) {
-    try (Stream<Path> files = Files.list(this.rulesPath)) {
-      boolean hasConfigs = files.anyMatch(p -> p.toString().endsWith(extension));
-      if (hasConfigs)return;
+    try (Stream<Path> files = Files.walk(this.rulesPath)) {
+      boolean hasConfigs = files
+        .filter(Files::isRegularFile)
+        .anyMatch(p -> p.toString().endsWith(extension));
+      if (hasConfigs) return;
     } catch (IOException exception) {
       log.warn("Failed to check rules directory contents", exception);
       return;
