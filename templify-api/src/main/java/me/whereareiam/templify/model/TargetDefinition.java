@@ -1,25 +1,27 @@
 package me.whereareiam.templify.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.Nullable;
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public final class TargetDefinition {
   @Nullable
-  private final String task;
+  private String task;
 
   @Nullable
-  private final String service;
+  private String service;
 
   @Nullable
-  private final String environment;
+  private String environment;
 
   @Nullable
-  private final String group;
+  private String group;
 
   @Nullable
-  private final String template;
+  private String template;
 }
 

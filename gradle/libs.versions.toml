@@ -8,7 +8,7 @@ lombok = "1.18.42"
 
 # general
 guice = "7.0.0"
-configura = "dev-b1bb54d"
+configura = "dev-12738f5"
 cloudnet = "4.0.0-RC15"
 
 # testing
