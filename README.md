@@ -1,6 +1,8 @@
 # Templify
 
-> A CloudNet v4 module for rule-based template processing before service deployment. Define replacement rules with target filtering (by task, service, environment, group, or template), inject environment variables, and apply conditional values — all through simple configuration files.
+> A CloudNet v4 module for rule-based template processing before service deployment. Define replacement rules with
+> target filtering (by task, service, environment, group, or template), inject environment variables, and apply
+> conditional values — all through simple configuration files.
 
 # Information
 
@@ -11,16 +13,25 @@
 
 [![Discord](https://discord.com/api/guilds/856839365938118698/widget.png?style=banner2)](https://discord.arcadeya.com/)
 
+# Documentation
+
+- [Settings](docs/SETTINGS.md) — Module configuration options
+- [Rules](docs/RULES.md) — Creating and configuring replacement rules
+- [Targets](docs/TARGETS.md) — Filtering by task, service, environment, group, or template
+- [Definitions](docs/DEFINITIONS.md) — Search tokens, replace types, and conditions
+- [Placeholders](docs/PLACEHOLDERS.md) — Built-in placeholders
+
 # Developer
 
-Extend Templify with custom placeholder providers or replacement logic by depending on the API module. See the [Javadocs](https://maven.whereareiam.me/javadoc/release/me/whereareiam/templify-api/latest) for API reference.
+Extend Templify with custom placeholder providers or replacement logic by depending on the API module. See
+the [Javadocs](https://maven.whereareiam.me/javadoc/release/me/whereareiam/templify-api/latest) for API reference.
 
 ## 1. Choose a Repository
 
-| Repository | URL | When to use |
-|------------|-----|-------------|
-| Release | `https://maven.whereareiam.me/release` | Stable versions (`1.0.0`, `2.1.0`) |
-| Development | `https://maven.whereareiam.me/development` | Snapshot builds (`dev-abc1234`) |
+| Repository  | URL                                        | When to use                        |
+|-------------|--------------------------------------------|------------------------------------|
+| Release     | `https://maven.whereareiam.me/release`     | Stable versions (`1.0.0`, `2.1.0`) |
+| Development | `https://maven.whereareiam.me/development` | Snapshot builds (`dev-abc1234`)    |
 
 > Use the **release** repository for production. Use **development** only if you need the latest unreleased features.
 
@@ -60,6 +71,7 @@ dependencies {
 <summary><b>Maven</b></summary>
 
 ```xml
+
 <repository>
     <id>whereareiam</id>
     <url>https://maven.whereareiam.me/release</url>
