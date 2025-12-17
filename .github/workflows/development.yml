@@ -92,7 +92,7 @@ jobs:
         run: mv templify-api/build/libs/templify-api-${{ needs.prepare.outputs.version }}.jar output/${{ needs.prepare.outputs.name }}-API-${{ needs.prepare.outputs.version }}.jar
 
       - name: Move bootstrap jar
-        run: mv templify-bootstrap/build/libs/templify-bootstrap-${{ needs.prepare.outputs.version }}.jar output/${{ needs.prepare.outputs.name }}-${{ needs.prepare.outputs.version }}.jar
+        run: mv build/libs/Templify-${{ needs.prepare.outputs.version }}.jar output/${{ needs.prepare.outputs.name }}-${{ needs.prepare.outputs.version }}.jar
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v4
