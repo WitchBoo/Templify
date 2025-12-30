@@ -1,9 +1,15 @@
+
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import org.apache.tools.ant.filters.ReplaceTokens
-import org.gradle.kotlin.dsl.filter
 
 plugins {
     alias(libs.plugins.shadow)
+    alias(libs.plugins.juppiter)
+}
+
+repositories {
+    mavenCentral()
+    maven("https://maven.whereareiam.me/development/")
+    maven("https://maven.whereareiam.me/release/")
 }
 
 dependencies {
@@ -13,18 +19,9 @@ dependencies {
             "implementation"(project(path))
         }
     }
-}
 
-tasks.named<Copy>("processResources") {
-    filter<ReplaceTokens>(
-        "tokens" to mapOf(
-            "projectName" to rootProject.name,
-            "projectVersion" to project.version,
-            // Dependencies
-            "guiceVersion" to libs.versions.guice.get(),
-            "configuraVersion" to libs.versions.configura.get()
-        )
-    )
+    moduleLibrary(rootProject.libs.guice)
+    moduleLibrary(rootProject.libs.configura)
 }
 
 tasks.withType<ShadowJar> {
@@ -42,4 +39,11 @@ tasks.withType<ShadowJar> {
     destinationDirectory.set(customOutputDir ?: defaultDestination)
 }
 
-
+moduleJson {
+    main = "me.whereareiam.templify.Templify"
+    name = rootProject.name
+    version = project.version.toString()
+    author = "whereareiam"
+    description = "A module for pre-startup processing and modification of service templates before they are deployed"
+    runtimeModule = true
+}

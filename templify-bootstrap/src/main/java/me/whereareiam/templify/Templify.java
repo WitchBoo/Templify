@@ -17,30 +17,33 @@ import java.util.Set;
 public final class Templify extends DriverModule {
   private Injector injector;
 
-  @ModuleTask(order = 100, lifecycle = ModuleLifeCycle.LOADED)
+  @ModuleTask(lifecycle = ModuleLifeCycle.LOADED)
   public void onLoad(EventManager eventManager) {
-    var dataDirectory = this.moduleWrapper().dataDirectory();
     this.injector = Guice.createInjector(
-      new TemplifyConfiguration(),
-      new CommonConfiguration(dataDirectory)
+      new CommonConfiguration(this.moduleWrapper().dataDirectory())
     );
 
     TemplifyAPI.initialize(this.injector);
     eventManager.registerListener(this.injector.getInstance(ServicePrepareListener.class));
   }
 
-  @ModuleTask(order = 100, lifecycle = ModuleLifeCycle.RELOADING)
+  @ModuleTask(lifecycle = ModuleLifeCycle.RELOADING)
   public void onReload() {
     Set<Reloadable> reloadables = this.injector.getInstance(
       Key.get(new TypeLiteral<>() {}, Names.named("reloadables"))
     );
 
-    for (Reloadable reloadable : reloadables)
+    for (Reloadable reloadable : reloadables) {
       reloadable.reload();
+    }
   }
 
-  @ModuleTask(order = 100, lifecycle = ModuleLifeCycle.STOPPED)
+  @ModuleTask(lifecycle = ModuleLifeCycle.STOPPED)
   public void onStop() {
     TemplifyAPI.shutdown();
   }
 }
+
+
+
+

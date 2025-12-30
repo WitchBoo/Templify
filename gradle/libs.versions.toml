@@ -2,13 +2,14 @@
 
 # plugins
 shadow = "9.3.0"
+juppiter = "0.5.0-beta.2"
 
 # compile time processing
 lombok = "1.18.42"
 
 # general
 guice = "7.0.0"
-configura = "dev-12738f5"
+configura = "dev-cf8e100"
 cloudnet = "4.0.0-RC15"
 
 # testing
@@ -41,5 +42,4 @@ testing = ["junit-jupiter", "mockito-core", "mockito-junit"]
 [plugins]
 
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
-
-
+juppiter = { id = "eu.cloudnetservice.juppiter", version.ref = "juppiter" }
