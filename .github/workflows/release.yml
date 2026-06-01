@@ -94,7 +94,7 @@ jobs:
         run: mv build/libs/Templify-${{ needs.prepare.outputs.version }}.jar output/${{ needs.prepare.outputs.name }}-${{ needs.prepare.outputs.version }}.jar
 
       - name: Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
