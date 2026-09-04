@@ -1,20 +1,20 @@
 [versions]
 
 # plugins
-shadow = "9.3.0"
+shadow = "9.6.1"
 juppiter = "0.5.0-beta.2"
 
 # compile time processing
-lombok = "1.18.42"
+lombok = "1.18.48"
 
 # general
 guice = "7.0.0"
 configura = "dev-cf8e100"
-cloudnet = "4.0.0-RC15"
+cloudnet = "4.0.0-RC17"
 
 # testing
-junit = "6.0.1"
-mockito = "5.21.0"
+junit = "6.1.3"
+mockito = "5.23.0"
 
 [libraries]
 
